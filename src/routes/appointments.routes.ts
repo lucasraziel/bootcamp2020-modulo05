@@ -1,14 +1,9 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
 import { startOfHour, parseISO, isEqual } from 'date-fns';
 
-const appointmentsRouter = Router();
+import Appointment from '../models/Appointment';
 
-interface Appointment {
-  date: Date;
-  provider: string;
-  id: string;
-}
+const appointmentsRouter = Router();
 
 const appointments: Appointment[] = [];
 
@@ -27,11 +22,7 @@ appointmentsRouter.post('/', (request, response) => {
     });
   }
 
-  const appointment = {
-    provider,
-    date: parsedDate,
-    id: uuid(),
-  };
+  const appointment = new Appointment(provider, date);
 
   appointments.push(appointment);
 
