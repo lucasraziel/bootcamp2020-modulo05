@@ -104,3 +104,7 @@ dist
 .tern-port
 
 ormconfig.json
+
+tmp/*
+
+!tmp/.gitkeep
