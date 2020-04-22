@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import User from '../models/User';
+import authConfig from '../config/authConfig';
 
 interface Request {
   email: string;
@@ -16,6 +17,7 @@ interface Response {
 export default class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response> {
     const userRepository = getRepository(User);
+    const { secret, expiresIn } = authConfig.jwt;
 
     const user = await userRepository.findOne({
       where: { email },
@@ -33,9 +35,9 @@ export default class AuthenticateUserService {
 
     delete user.password;
 
-    const token = sign({}, 'a string that will be in .env', {
+    const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn,
     });
 
     return {
