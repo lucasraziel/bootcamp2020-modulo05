@@ -4,6 +4,8 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '../config/authConfig';
 
+import AppError from '../errors/AppError';
+
 interface TokenPayload {
   iat: number;
   exp: number;
@@ -18,7 +20,7 @@ export default function ensureAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT is missing');
+    throw new AppError('JWT is missing');
   }
 
   const [, token] = authHeader.split(' ');
@@ -35,6 +37,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    throw new Error('User is not authenticated');
+    throw new AppError('User is not authenticated', 401);
   }
 }

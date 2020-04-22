@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../config/authConfig';
+import AppError from '../errors/AppError';
 
 interface Request {
   email: string;
@@ -24,13 +25,13 @@ export default class AuthenticateUserService {
     });
 
     if (!user) {
-      throw new Error('Incorrect email/password');
+      throw new AppError('Incorrect email/password', 401);
     }
 
     const passwordMathed = await compare(password, user.password);
 
     if (!passwordMathed) {
-      throw new Error('Incorrect email/password');
+      throw new AppError('Incorrect email/password', 401);
     }
 
     delete user.password;

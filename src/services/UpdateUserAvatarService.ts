@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import User from '../models/User';
 import UploadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 
 interface Request {
   user_id: string;
@@ -15,7 +16,7 @@ class UpdateUserAvatarService {
     const user = await userRepository.findOne(user_id);
 
     if (!user) {
-      throw new Error('This user is not valid');
+      throw new AppError('This user is not valid');
     }
 
     if (user.avatar) {
