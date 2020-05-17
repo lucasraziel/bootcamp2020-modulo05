@@ -2,7 +2,6 @@ import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepo
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
 import AppError from '@shared/errors/AppError';
 import AuthenticateUserService from './AuthenticateUserService';
-import CreateUserService from './CreateUserService';
 
 describe('AuthenticateUser', () => {
   it('should be able to authenticate a user', async () => {
@@ -12,12 +11,8 @@ describe('AuthenticateUser', () => {
       fakeUsersRepository,
       fakeHashProvider
     );
-    const createUserService = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider
-    );
 
-    const user = await createUserService.execute({
+    const user = await fakeUsersRepository.create({
       name: 'nome',
       email: 'algo@algo.com',
       password: '123456',
@@ -55,12 +50,8 @@ describe('AuthenticateUser', () => {
       fakeUsersRepository,
       fakeHashProvider
     );
-    const createUserService = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider
-    );
 
-    await createUserService.execute({
+    await fakeUsersRepository.create({
       name: 'nome',
       email: 'algo@algo.com',
       password: '123456',
