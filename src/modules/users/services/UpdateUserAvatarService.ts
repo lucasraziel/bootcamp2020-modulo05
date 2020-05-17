@@ -1,19 +1,20 @@
-import { getRepository } from 'typeorm';
 import fs from 'fs';
 import path from 'path';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+
 import User from '@modules/users/infra/typeorm/entities/User';
 import UploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 
-interface Request {
+interface IRequest {
   user_id: string;
   avatarFileName: string;
 }
 class UpdateUserAvatarService {
-  public async execute({ user_id, avatarFileName }: Request): Promise<User> {
-    const userRepository = getRepository(User);
+  constructor(private usersRepository: IUsersRepository) {}
 
-    const user = await userRepository.findOne(user_id);
+  public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('This user is not valid');
@@ -30,7 +31,7 @@ class UpdateUserAvatarService {
     }
     user.avatar = avatarFileName;
 
-    await userRepository.save(user);
+    await this.usersRepository.save(user);
 
     return user;
   }
