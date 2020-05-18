@@ -35,7 +35,7 @@ describe('CreateUser', () => {
       email: 'email@qualquer.com',
     });
 
-    await expect(sendMail).toHaveBeenCalled();
+    expect(sendMail).toHaveBeenCalled();
   });
 
   it('should not be able to create a non-existing user password', async () => {
@@ -59,6 +59,6 @@ describe('CreateUser', () => {
       email: 'email@qualquer.com',
     });
 
-    await expect(generateToken).toHaveBeenCalled();
+    expect(generateToken).toHaveBeenCalled();
   });
 });

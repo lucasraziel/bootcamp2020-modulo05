@@ -33,7 +33,7 @@ describe('AuthenticateUser', () => {
   });
 
   it('should not be able to authenticate a user when it does not exist', async () => {
-    expect(
+    await expect(
       authenticateUserService.execute({
         email: 'algo@algo.com',
         password: '123456',
