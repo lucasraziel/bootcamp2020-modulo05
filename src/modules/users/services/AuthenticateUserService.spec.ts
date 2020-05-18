@@ -48,7 +48,7 @@ describe('AuthenticateUser', () => {
       password: '123456',
     });
 
-    expect(
+    await expect(
       authenticateUserService.execute({
         email: 'algo@algo.com',
         password: '1234567',

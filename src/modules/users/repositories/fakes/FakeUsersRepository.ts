@@ -33,6 +33,8 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async save(user: User): Promise<User> {
+    this.users = this.users.filter((userItem) => userItem.id !== user.id);
+
     this.users.push(user);
 
     return user;

@@ -60,8 +60,8 @@ describe('AuthenticateUser', () => {
       avatarFileName: 'avatarNovo',
     });
 
-    expect(deleteFile).toHaveBeenCalledWith('avatar');
+    await expect(deleteFile).toHaveBeenCalledWith('avatar');
 
-    expect(user.avatar).toBe('avatarNovo');
+    await expect(user.avatar).toBe('avatarNovo');
   });
 });
