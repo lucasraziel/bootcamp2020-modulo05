@@ -4,9 +4,6 @@ import IUserTokensRepository from '@modules/users/repositories/IUserTokensReposi
 import IMailProvider from '@shared/providers/MailProvider/models/IMailProvider';
 import AppError from '@shared/errors/AppError';
 
-// import User from '@modules/users/infra/typeorm/entities/User';
-// import AppError from '@shared/errors/AppError';
-
 interface IRequest {
   email: string;
 }
