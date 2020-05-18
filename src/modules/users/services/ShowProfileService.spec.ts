@@ -26,7 +26,7 @@ describe('UpdateProfile', () => {
     expect(profile.email).toBe('algo@algo.com');
   });
 
-  it('should not be able to update the profile of a non-existing user', async () => {
+  it('should not be able to show the profile of a non-existing user', async () => {
     await expect(
       showProfileService.execute({
         user_id: 'fakeID',
