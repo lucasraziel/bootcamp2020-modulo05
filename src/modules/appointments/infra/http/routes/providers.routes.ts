@@ -4,6 +4,7 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 import ProviderController from '@modules/appointments/infra/http/controllers/ProviderController';
 import ProviderDayAvailabilityController from '@modules/appointments/infra/http/controllers/ProviderDayAvailabilityController';
 import ProviderMonthAvailabilityController from '@modules/appointments/infra/http/controllers/ProviderMonthAvailabilityController';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 const providersRouter = Router();
 
@@ -21,10 +22,20 @@ providersRouter.use(ensureAuthenticated);
 
 providersRouter.post(
   '/:id/month-availability',
+  celebrate({
+    [Segments.PARAMS]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
   providerMonthAvailabilityController.index
 );
 providersRouter.post(
   '/:id/daily-availability',
+  celebrate({
+    [Segments.PARAMS]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
   providerDayAvailabilityController.index
 );
 
