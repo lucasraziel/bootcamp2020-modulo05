@@ -1,13 +1,13 @@
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository';
-import ListProviderMonthAvailabilityService from './ListProviderMonthAvailabilityService';
+import ListProviderDayAvailabilityService from './ListProviderDayAvailabilityService';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
-let listProviderMonthAvailability: ListProviderMonthAvailabilityService;
+let listProviderDayAvailability: ListProviderDayAvailabilityService;
 
-describe('ListProviderMonthAvailabilityService', () => {
+describe('ListProviderDayAvailability', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
-    listProviderMonthAvailability = new ListProviderMonthAvailabilityService(
+    listProviderDayAvailability = new ListProviderDayAvailabilityService(
       fakeAppointmentsRepository
     );
   });
@@ -73,18 +73,31 @@ describe('ListProviderMonthAvailabilityService', () => {
       provider_id: 'user',
     });
 
-    const availability = await listProviderMonthAvailability.execute({
+    const availability20 = await listProviderDayAvailability.execute({
       provider_id: 'user',
       year: 2020,
       month: 5,
+      day: 20,
     });
 
-    expect(availability).toEqual(
+    const availability21 = await listProviderDayAvailability.execute({
+      provider_id: 'user',
+      year: 2020,
+      month: 5,
+      day: 21,
+    });
+
+    expect(availability20).toEqual(
       expect.arrayContaining([
-        { day: 20, available: false },
-        { day: 21, available: true },
-        { day: 19, available: true },
-        { day: 22, available: true },
+        { hour: 13, available: false },
+        { hour: 10, available: false },
+      ])
+    );
+
+    expect(availability21).toEqual(
+      expect.arrayContaining([
+        { hour: 13, available: true },
+        { hour: 10, available: false },
       ])
     );
   });
