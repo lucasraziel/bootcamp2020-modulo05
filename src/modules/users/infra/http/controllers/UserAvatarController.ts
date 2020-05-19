@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
+
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
 export default class UserAvatarControlller {
@@ -11,6 +13,6 @@ export default class UserAvatarControlller {
       avatarFileName: request.file.filename,
     });
 
-    return response.json(user);
+    return response.json(classToClass(user));
   }
 }
