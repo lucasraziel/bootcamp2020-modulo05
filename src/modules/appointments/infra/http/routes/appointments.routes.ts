@@ -12,17 +12,7 @@ const providerAppointmentController = new ProviderAppointmentController();
 
 appointmentsRouter.use(ensureAuthenticated);
 
-appointmentsRouter.post(
-  '/',
-  celebrate({
-    [Segments.BODY]: {
-      provider_id: Joi.string().uuid().required(),
-      date: Joi.date().required(),
-    },
-  }),
-  appointmentsController.create
-);
-appointmentsRouter.post(
+appointmentsRouter.get(
   '/me',
   celebrate({
     [Segments.BODY]: {
@@ -32,6 +22,17 @@ appointmentsRouter.post(
     },
   }),
   providerAppointmentController.index
+);
+
+appointmentsRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      provider_id: Joi.string().uuid().required(),
+      date: Joi.date().required(),
+    },
+  }),
+  appointmentsController.create
 );
 
 export default appointmentsRouter;
