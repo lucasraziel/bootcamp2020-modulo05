@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
+import uploadConfig from '@config/upload';
 
 @Entity('users')
 class User {
@@ -33,10 +34,15 @@ class User {
   updated_at: Date;
 
   @Expose({ name: 'avatar_url' })
-  getAvatarUrl(): string | undefined {
-    return this.avatar
-      ? `${process.env.APP_URL}/files/${this.avatar}`
-      : undefined;
+  getAvatarUrl(): string | null {
+    switch (uploadConfig.driver) {
+      case 'disk':
+        return `${process.env.APP_URL}/files/${this.avatar}`;
+      case 's3':
+        return `${process.env.AWSEndPoint}/${this.avatar}`;
+      default:
+        return null;
+    }
   }
 }
 

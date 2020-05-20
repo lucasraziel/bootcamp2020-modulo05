@@ -8,7 +8,7 @@ import UserAvatarController from '@modules/users/infra/http/controllers/UserAvat
 import { celebrate, Segments, Joi } from 'celebrate';
 
 const usersRoute = Router();
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 const userController = new UsersController();
 const userAvatarController = new UserAvatarController();
 
