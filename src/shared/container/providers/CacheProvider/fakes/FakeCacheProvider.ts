@@ -20,12 +20,16 @@ export default class FakeCacheProvider implements ICacheProvider {
     if (!data) {
       return null;
     }
-    return JSON.parse(data);
+    return JSON.parse(data) as T;
   }
 
   public async invalidatePrefix(prefix: string): Promise<void> {
-    console.log(prefix);
+    const keys = Object.keys(this.cached).filter((key) =>
+      key.startsWith(`${prefix}:`)
+    );
 
-    this.cached = {};
+    keys.forEach((key) => {
+      delete this.cached[key];
+    });
   }
 }
