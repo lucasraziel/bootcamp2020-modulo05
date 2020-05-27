@@ -9,9 +9,9 @@ import 'express-async-errors';
 
 import AppError from '@shared/errors/AppError';
 import uploadConfig from '@config/upload';
-import routes from './routes';
-
 import '@shared/infra/typeorm';
+
+import routes from './routes';
 import '@shared/container';
 import rateLimiter from './middlewares/rateLimiter';
 

@@ -34,12 +34,5 @@ export default class AlterTableAppointmentsColumProvider1587506747630
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('appointments', 'appointmentProvider');
     await queryRunner.dropColumn('appointments', 'provider_id');
-    await queryRunner.addColumn(
-      'appointments',
-      new TableColumn({
-        name: 'provider',
-        type: 'varchar',
-      })
-    );
   }
 }

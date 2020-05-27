@@ -20,20 +20,20 @@ providersRouter.use(ensureAuthenticated);
 //   return response.json(appointments);
 // });
 
-providersRouter.post(
+providersRouter.get(
   '/:id/month-availability',
   celebrate({
     [Segments.PARAMS]: {
-      provider_id: Joi.string().uuid().required(),
+      id: Joi.string().uuid().required(),
     },
   }),
   providerMonthAvailabilityController.index
 );
-providersRouter.post(
+providersRouter.get(
   '/:id/daily-availability',
   celebrate({
     [Segments.PARAMS]: {
-      provider_id: Joi.string().uuid().required(),
+      id: Joi.string().uuid().required(),
     },
   }),
   providerDayAvailabilityController.index

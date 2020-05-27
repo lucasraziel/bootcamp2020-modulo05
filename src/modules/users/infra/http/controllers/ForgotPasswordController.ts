@@ -12,6 +12,7 @@ export default class SessionController {
     await sendForgotPasswordEmailService.execute({
       email,
     });
+
     return response.status(204).json();
   }
 }

@@ -7,7 +7,7 @@ import {
   ObjectIdColumn,
 } from 'typeorm';
 
-@Entity('Notifications')
+@Entity('notifications')
 class Notification {
   @ObjectIdColumn()
   id: ObjectID;

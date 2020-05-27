@@ -14,7 +14,7 @@ import EtherealMailProvider from '@shared/container/providers/MailProvider/imple
 // 'nome'
 // providers[config.driver]
 
-container.registerSingleton<IMailProvider>(
+container.registerInstance<IMailProvider>(
   'MailProvider',
-  EtherealMailProvider
+  container.resolve(EtherealMailProvider)
 );

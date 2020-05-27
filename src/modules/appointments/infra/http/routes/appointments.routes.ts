@@ -15,8 +15,8 @@ appointmentsRouter.use(ensureAuthenticated);
 appointmentsRouter.get(
   '/me',
   celebrate({
-    [Segments.BODY]: {
-      date: Joi.number().required(),
+    [Segments.QUERY]: {
+      year: Joi.number().required(),
       month: Joi.number().required(),
       day: Joi.number().required(),
     },

@@ -24,7 +24,7 @@ export default class ProfileController {
 
       delete user.password;
 
-      return response.json(user);
+      return response.json(classToClass(user));
     } catch (err) {
       return response.status(err.statusCode).json({ error: err.message });
     }
@@ -37,7 +37,6 @@ export default class ProfileController {
 
     const user = await showProfile.execute({ user_id });
 
-    delete user.password;
     return response.json(classToClass(user));
   }
 }
